@@ -1,60 +1,62 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <h1></h1>
-    <h2>Essential Links</h2>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank">Forum</a></li>
-      <li><a href="https://gitter.im/vuejs/vue" target="_blank">Gitter Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank">Twitter</a></li>
-    </ul>
-    <h2>Ecosystem</h2>
-    <ul>
-      <li><a href="http://router.vuejs.org/" target="_blank">vue-router</a></li>
-      <li><a href="http://vuex.vuejs.org/" target="_blank">vuex</a></li>
-      <li><a href="http://vue-loader.vuejs.org/" target="_blank">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank">awesome-vue</a></li>
-    </ul>
+    <nav class="nav clearfix">
+      <div class="container">
+        <ul class="nav-list nav-left">
+          <li class="active">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+              <use xlink:href="#user-icon"></use>
+            </svg>
+          </li>
+          <li>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+              <use xlink:href="#menu-icon"></use>
+            </svg>
+          </li>
+          <li>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+              <use xlink:href="#search-icon"></use>
+            </svg>
+          </li>
+        </ul>
+        <ul class="nav-list nav-right">
+          <li>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#ffffff">
+              <use xlink:href="#calendar-icon"></use>
+            </svg>
+          </li>
+          <li>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+              <use xlink:href="#mail-icon"></use>
+            </svg>
+          </li>
+          <li>
+            <img class="message-profile-pic" src="https://api.adorable.io/avatars/2" width="24px">
+          </li>
+        </ul>
+      </div>
+    </nav>
+  
+    <section>
+      <div class="container">
+        <comment-list></comment-list>
+      </div>
+    </section>
   </div>
 </template>
 
 <script>
+import CommentList from './CommentList.vue'
+
 export default {
   name: 'app',
-  data () {
+  data() {
     return {
       msg: 'Welcome to Your Vue.js App'
     }
+  },
+  components: {
+      CommentList 
   }
 }
 </script>
-
-<style lang="scss">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-
-h1, h2 {
-  font-weight: normal;
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-
-a {
-  color: #42b983;
-}
-</style>
