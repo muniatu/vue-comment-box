@@ -13,16 +13,23 @@
     </div>
     <div class="comment-list-body">
       <div v-for="comments in comments" class="comment-list-comment">
-        <h4 class="author">
-          {{comments.author}}
-        </h4>
-        <p v-html="comments.content" class="comment-list-comment-content"></p>
+        <div class="comment-list-comment-avatar">
+          <img :src="comments.avatar" width="40" />
+        </div>
+        <div class="comment-list-comment-content">
+          <h4 class="comment-list-comment-content-user">
+            {{comments.author}}
+          </h4>
+          <p class="comment-list-comment-content-text">
+            {{comments.content}}
+          </p>
+        </div>
   
       </div>
     </div>
     <div class="comment-list-footer">
-      <textarea type="text" v-model="msg" placeholder="Start typing your message or drop file..."></textarea>
-      <button id="send-button" @click="addComment">SEND</button>
+      <textarea type="text" v-model="msg" @keyup.enter="addCommentKey" placeholder="Start typing your message or drop file..."></textarea>
+      <button id="send-button" @click="addComment" >SEND</button>
     </div>
   </section>
 </template>
@@ -33,10 +40,12 @@ export default {
   data: function () {
     return {
       user: 'Adrià Compte',
+      userAvatar: 'https://api.adorable.io/avatars/2',
+      msg: '',
       comments: [
-        { author: 'Alex Mortinger', content: 'Lorem ipsum dolor sit amet, qui ea prodesset similique, ea mea nostrum hendrerit definitionem. Graeco commodo scripta mei ad, et nibh adolescens suscipiantur sea, ex diceret facilisis incorrupte duo.' },
-        { author: 'John Doe', content: 'Eos choro quidam intellegat ne, voluptua molestiae usu et, ad fuisset officiis his. Veri nominavi vis cu, mollis vocent partiendo est in. Usu reprimique appellantur ne, aliquip dissentiet qui cu, id feugiat omnesque torquatos ius. Mei et nonumy adolescens.' },
-        { author: 'Ada Lovelace', content: 'Sit an mazim democritum, modo vituperatoribus sed te. Mea ei accumsan petentium. An legendos scriptorem mei. Duis accusam definitiones ius at, oporteat inimicus cu vel, magna vitae erroribus sit id. No dico efficiendi vix, ex altera theophrastus sed, vis facer corrumpit no.' }
+        { avatar: 'https://api.adorable.io/avatars/8', author: 'Alex Mortinger', content: 'Lorem ipsum dolor sit amet, qui ea prodesset similique, ea mea nostrum hendrerit definitionem. Graeco commodo scripta mei ad, et nibh adolescens suscipiantur sea, ex diceret facilisis incorrupte duo.' },
+        { avatar: 'https://api.adorable.io/avatars/10', author: 'John Doe', content: 'Eos choro quidam intellegat ne, voluptua molestiae usu et, ad fuisset officiis his. Veri nominavi vis cu, mollis vocent partiendo est in. Usu reprimique appellantur ne, aliquip dissentiet qui cu, id feugiat omnesque torquatos ius. Mei et nonumy adolescens.' },
+        { avatar: 'https://api.adorable.io/avatars/24', author: 'Ada Lovelace', content: 'Sit an mazim democritum, modo vituperatoribus sed te. Mea ei accumsan petentium. An legendos scriptorem mei. Duis accusam definitiones ius at, oporteat inimicus cu vel, magna vitae erroribus sit id. No dico efficiendi vix, ex altera theophrastus sed, vis facer corrumpit no.' }
       ]
     }
 
@@ -45,10 +54,17 @@ export default {
   methods: {
     addComment: function () {
       this.comments.push({
+        avatar: this.userAvatar,
         author: this.user,
         content: this.msg
       })
-      this.msg = '';
+      this.msg = ''
+    },
+    //allows user to add line break
+    addCommentKey: function (event) {
+    	if (!event.shiftKey) {
+      	this.addComment()
+      }
     }
   }
 }
@@ -64,38 +80,57 @@ export default {
   padding: 1.7rem 1rem 1.7rem 3rem;
   float: left;
 }
-.user-status{
-  float:left;
+
+.user-status {
+  float: left;
   padding: 1.8rem 0;
 }
-.user-status span{
+
+.user-status span {
   font-size: 12px;
-  color:#aaa;
+  color: #aaa;
 }
+
 #comment-section {
   position: relative;
   background-color: white;
 }
 
 .comment-list-body {
-  padding: 0 3rem;
+  padding: 2rem 3rem 3rem 3rem;
+}
+.comment-list-comment{
+  position:relative;
 }
 
-.comment-list-comment {
-  border-top: 1px solid #eee;
+.comment-list-comment .author {
+  margin-bottom: 0.5rem;
+}
+
+.comment-list-comment-avatar {
+  position:absolute;
   padding: 2rem 0;
-  word-wrap: break-word;
+}
+.comment-list-comment:first-child .comment-list-comment-avatar{
+  padding-top: 0;
 }
 
-.comment-list-comment:first-child {
+.comment-list-comment-content {
+  padding: 2rem 0 2rem;
+  margin-left: 4.5rem;
+  border-top: 1px solid #eee;
+  vertical-align: top;
+  word-wrap:break-word;
+}
+.comment-list-comment:first-child .comment-list-comment-content{
   border: none;
+  padding-top: 0;
 }
-.comment-list-comment:last-child {
-  padding-bottom: 3rem;
+
+.comment-list-comment-avatar img {
+  border-radius: 50%;
 }
-.comment-list-comment .author{
-  margin-bottom:0.5rem;
-}
+
 .comment-list-footer {
   background-color: #f1f1f1;
   height: 6rem;
@@ -104,7 +139,7 @@ export default {
 .comment-list-footer textarea {
   background: transparent;
   border: none;
-  padding: 2.5rem 3rem 1.5rem;
+  padding: 2.5rem 3rem 1.2rem;
   resize: none;
   width: 60%;
 }
