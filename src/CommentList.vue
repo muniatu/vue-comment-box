@@ -103,7 +103,7 @@ export default {
   position:relative;
 }
 
-.comment-list-comment .author {
+.comment-list-comment-content-user {
   margin-bottom: 0.5rem;
 }
 
@@ -130,7 +130,6 @@ export default {
 .comment-list-comment-avatar img {
   border-radius: 50%;
 }
-
 .comment-list-footer {
   background-color: #f1f1f1;
   height: 6rem;
